@@ -38,7 +38,7 @@
             </div>
         </section>
 
-        <section class="summary">
+        <section class="summary" v-if="calcTotal() > 0">
             <strong>{{ titleSummary }}</strong>
             <table>
                 <thead>
@@ -51,13 +51,13 @@
                     <tr v-for="product in products">
                         <template v-if="product.active"> <!-- Nao e visivel -->
                             <td>{{product.quantity}}x {{product.name}}</td>
-                            <td>{{ (product.quantity * product.price).toFixed(2) }}</td>
+                            <td>{{ this.roundTotalToMonetary(this.calcPriceBasedInQuantity(product.price, product.quantity)) }}</td>
                         </template>
                     </tr>
 
                     <tr>
                         <th>{{ total }}</th>
-                        <th>5.99</th>
+                        <th>{{ calcTotal() }}</th>
                     </tr>
                 </tbody>
             </table>

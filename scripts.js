@@ -76,6 +76,25 @@ const SelfServiceMachine = {
             total: "Total",
             products: window.products,
         };
+    },
+    methods: {
+        calcTotal() {
+            let total = 0;
+
+            this.products.forEach((product) => {
+                if (product.active) {
+                    total += this.calcPriceBasedInQuantity(product.price, product.quantity);
+                }
+            });
+
+            return this.roundTotalToMonetary(total);
+        },
+        calcPriceBasedInQuantity(price, quantity) {
+            return price * quantity;
+        },
+        roundTotalToMonetary(total) {
+            return total.toFixed(2);
+        }
     }
 }
 
