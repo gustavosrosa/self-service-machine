@@ -17,7 +17,11 @@
 
         <section class="items">
             <h4>{{ title }}</h4>
-            <div v-for="product in products" class="product">
+            <div v-for="product in products"
+            class="product"
+            @click="product.active = !product.active"
+            :class="{ 'selected': product.active }"
+            >
                 <div class="photo">
                     <!-- Variável dinâmica -->
                     <img :src="product.photo">
