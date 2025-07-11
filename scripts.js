@@ -63,9 +63,16 @@ var products = [
         "quantity": 1
     }
 ];
- 
+
+/**
+ * Carrega toda a lógica da aplicação
+ */
 const SelfServiceMachine = {
-    
+    data() {
+        return {
+            title: "Selecione os Produtos"
+        }
+    }
 }
 
 Vue.createApp(SelfServiceMachine).mount('#app');
