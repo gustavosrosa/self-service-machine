@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
     <main id="app">
 
         <section class="items">
-            <h4>{{ title }}</h4>
+            <h4>{{ titleMain }}</h4>
             <div v-for="product in products"
             class="product"
             @click="product.active = !product.active"
@@ -39,22 +39,24 @@
         </section>
 
         <section class="summary">
-            <strong>Resumo do pedido</strong>
+            <strong>{{ titleSummary }}</strong>
             <table>
                 <thead>
                     <tr>
-                        <th>Item</th>
-                        <th>Total</th>
+                        <th>{{ item }}</th>
+                        <th>{{ total }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1x Big Mac</td>
-                        <td>5.99</td>
+                    <tr v-for="product in products">
+                        <template v-if="product.active"> <!-- Nao e visivel -->
+                            <td>{{product.quantity}}x {{product.name}}</td>
+                            <td>{{ (product.quantity * product.price).toFixed(2) }}</td>
+                        </template>
                     </tr>
 
                     <tr>
-                        <th>Total</th>
+                        <th>{{ total }}</th>
                         <th>5.99</th>
                     </tr>
                 </tbody>

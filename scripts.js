@@ -70,9 +70,12 @@ var products = [
 const SelfServiceMachine = {
     data() {
         return {
-            title: "Selecione os Produtos",
+            titleMain: "Selecione os Produtos",
+            titleSummary: "Resumo do pedido",
+            item: "Item",
+            total: "Total",
             products: window.products,
-        }
+        };
     }
 }
 
