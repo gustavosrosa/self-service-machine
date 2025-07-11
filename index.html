@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Self Service Order</title>
+</head>
+
+<body>
+
+    <main id="app">
+
+        <section class="items">
+            <h4>{{ titleMain }}</h4>
+            <div v-for="product in products"
+            class="product"
+            @click="product.active = !product.active"
+            :class="{ 'selected': product.active }"
+            >
+                <div class="photo">
+                    <!-- Variável dinâmica -->
+                    <img :src="product.photo">
+                </div>
+                <div class="description">
+                    <span class="name">{{ product.name }}</span>
+                    <span class="price">{{ product.price }}</span>
+                    <div class="quantity-area" v-if="product.active">
+                        <button @click.stop="product.quantity--" :disabled="product.quantity <= 1">-</button>
+                        <span class="quantity">{{ product.quantity }}</span>
+                        <button @click.stop="product.quantity++">+</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="summary" v-if="calcTotal() > 0">
+            <strong>{{ titleSummary }}</strong>
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ item }}</th>
+                        <th>{{ total }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="product in products">
+                        <template v-if="product.active"> <!-- Nao e visivel -->
+                            <td>{{product.quantity}}x {{product.name}}</td>
+                            <td>{{ this.roundTotalToMonetary(this.calcPriceBasedInQuantity(product.price, product.quantity)) }}</td>
+                        </template>
+                    </tr>
+
+                    <tr>
+                        <th>{{ total }}</th>
+                        <th>{{ calcTotal() }}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="scripts.js"></script>
+</body>
+
+</html>
